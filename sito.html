@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Valentina Santini — Portfolio</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ========================= Local fonts (TTF self-hosted) ========================= */
+      @font-face {
+        font-family: "ArialRegular";
+        src: url("fonts/ArialRegular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "ArialBold";
+        src: url("fonts/ArialBold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "BrushedTraveler";
+        src: url("fonts/BrushedTraveler.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      } /* ========================= Design tokens / layout vars ========================= */
+      :root {
+        --anchor-extra: 10px;
+        --pink: #f59cc1;
+        --white: #fff;
+        --orange: #f26a21;
+        --shadow: rgba(0, 0, 0, 0.15);
+        --header-h: 74px; /* aggiornato via JS in base all'altezza reale header */
+        --vpad: clamp(16px, 3vh, 40px); /* about */
+        --about-align-tweak: -100px;
+        --about-right-shift: 28px;
+      } /* ========================= Base ========================= */
+      *,
+      :before,
+      :after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--pink);
+        color: #fff;
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+          Ubuntu, Cantarell, "Helvetica Neue", Arial;
+        overflow-x: hidden;
+        padding-top: var(--header-h); /* spazio per l'header fixed */
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      } /* Compensazione ancore: ogni <section> può aggiungere un delta specifico */
+      section {
+        scroll-margin-top: calc(var(--header-h) + var(--anchor-extra, 0px));
+      }
+      #about {
+        --anchor-extra: 16px;
+      }
+      #work {
+        --anchor-extra: -120px;
+      }
+      #contact {
+        --anchor-extra: -70px;
+      } /* ========================= Header (fixed) ========================= */
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 1000;
+        backdrop-filter: saturate(110%) blur(6px);
+        background: var(--pink);
+        border-bottom: 3px solid rgb(255, 255, 255);
+        box-shadow: 0 6px 10px var(--shadow);
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 74px;
+      }
+      .brand img {
+        height: 50px;
+      }
+      .menu {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+      .menu a {
+        opacity: 0.95;
+        font-weight: 600;
+      }
+      .menu a:hover {
+        opacity: 1;
+        text-decoration: underline;
+      } /* ========================= Hero ========================= */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: var(--vpad) 0;
+      }
+      .hero-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .hero .art {
+        display: block;
+        margin: 0 auto;
+        width: min(1200px, 92vw);
+        max-height: calc(100vh - var(--header-h) - var(--vpad) * 2);
+        height: auto;
+        object-fit: contain;
+      }
+      @media (min-width: 1024px) {
+        .hero .art {
+          width: min(1000px, 86vw);
+        }
+      } /* ========================= About ========================= */
+      .about {
+        min-height: calc(100vh - var(--header-h) - 1px);
+        display: flex;
+        align-items: center;
+        padding: 0;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: clamp(20px, 4vw, 48px);
+        align-items: start;
+      }
+      .about-composite {
+        display: block;
+        width: min(620px, 48vw);
+        max-width: 100%;
+        height: auto;
+        margin-top: var(--about-align-tweak);
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.12));
+      }
+      .about-right {
+        margin-top: var(--about-right-shift);
+      }
+      .about-title {
+        font-family: "ArialBold", Arial, Helvetica, sans-serif;
+        font-weight: 700;
+        color: #fff;
+        font-size: 120px;
+        line-height: 0.85;
+        margin: 0;
+        text-shadow: 6px 0 8px rgba(0, 0, 0, 0.5);
+        position: relative;
+        display: inline-block;
+      }
+      .intro-tag {
+        text-shadow: none;
+        font-family: "BrushedTraveler", cursive;
+        color: var(--orange);
+        position: absolute;
+        font-size: 20px;
+        left: 140px;
+        top: 80%;
+        transform: translateY(-50%) rotate(-6deg);
+        line-height: 1;
+        margin: 0;
+        z-index: 2;
+      }
+      .about-text {
+        margin-top: 12px;
+        color: #ffeef4;
+        max-width: 50ch;
+        line-height: 1.62;
+        font-size: clamp(14px, 1.25vw, 16px);
+        font-family: "ArialRegular";
+        font-weight: 400;
+      }
+      .skills-title {
+        position: relative;
+        margin: 18px 0 10px;
+        margin-bottom: 20px;
+        font-family: "BrushedTraveler", "Pacifico", cursive;
+        color: var(--orange);
+        font-size: 25px;
+        line-height: 1;
+        transform: rotate(-3deg);
+      }
+      .skill-badges {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .badge {
+        margin-top: 10px;
+        margin-left: -5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--orange);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "ArialBold";
+        font-weight: 200;
+        font-size: 30px;
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18),
+          0 5px 12px rgba(0, 0, 0, 0.1);
+      }
+      @media (min-width: 901px) and (max-height: 820px) {
+        .about-composite {
+          width: min(560px, 44vw);
+        }
+        .about-right {
+          margin-top: calc(var(--about-right-shift) - 10px);
+        }
+      }
+      @media (max-width: 900px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .about {
+          min-height: auto;
+          padding: clamp(24px, 6vh, 48px) 0;
+        }
+        .about-composite {
+          width: min(520px, 88vw);
+          margin-top: 0;
+        }
+        .about-right {
+          margin-top: 12px;
+        }
+      } /* ========================= Work + grids ========================= */
+      .work-hero {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        align-items: center;
+        gap: clamp(20px, 4vw, 48px);
+        padding: clamp(28px, 6vh, 60px) 0;
+      }
+      .work-hero img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .work-title {
+        font-family: "ArialBold";
+        font-size: clamp(64px, 8.5vw, 110px);
+        line-height: 0.9;
+        font-weight: 800;
+        text-shadow: 6px 0 8px rgba(0, 0, 0, 0.5);
+      }
+      @media (max-width: 900px) {
+        .work-hero {
+          grid-template-columns: 1fr;
+        }
+      }
+      .section-title {
+        font-family: "BrushedTraveler", cursive;
+        font-weight: 400;
+        font-size: 33px;
+        margin: 18px 0 8px;
+        color: #fff;
+        text-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
+      }
+      .pieces-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(20px, 2.6vw, 36px);
+        padding: 10px 0 40px;
+      }
+      @media (max-width: 900px) {
+        .pieces-grid {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        .piece {
+          max-width: 520px;
+          margin: 0 auto;
+        }
+      }
+      .piece {
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+      } /* Frame proporzionato: mantiene 806x1059, nessun crop (object-fit:contain) */
+      .pieces-grid.graphic-fix .frame {
+        aspect-ratio: 806 / 1059;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        box-shadow: none;
+        position: relative;
+      }
+      .pieces-grid.graphic-fix .frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        margin: 0;
+        background: transparent;
+        border: 0;
+      }
+      .piece-caption {
+        font-weight: 600;
+        text-align: center;
+        color: #111;
+        padding: 0 6px;
+      } /* ========================= Hover overlay (opt-in con .hoverable) ========================= */
+      .hoverable {
+        --hover-r: 22px;
+        position: relative;
+        isolation: isolate;
+        cursor: pointer;
+        border-radius: var(--hover-r);
+      }
+      .hoverable img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .hoverable:hover img {
+        transform: scale(1.02);
+      }
+      .hover-layer {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.48);
+        color: #fff;
+        font-family: "ArialRegular", Arial, sans-serif;
+        font-weight: 400;
+        font-size: clamp(14px, 1.2vw, 18px);
+        text-align: center;
+        padding: 14px;
+        border-radius: var(--hover-r);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .hoverable:hover .hover-layer {
+        opacity: 1;
+      }
+
+      /* ========================= Contact (doppia immagine) ========================= */
+
+      .contact-duo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(20px, 5vw, 60px);
+        align-items: center;
+        padding: clamp(24px, 6vh, 64px) 0;
+      }
+      .contact-card {
+        border-radius: 40px;
+        overflow: hidden;
+        filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.14))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.08));
+      }
+      .contact-card img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 806 / 1059;
+        object-fit: contain;
+        display: block;
+        border-radius: inherit;
+      }
+      @media (max-width: 900px) {
+        .contact-duo {
+          grid-template-columns: 1fr;
+        }
+        .contact-card {
+          max-width: 520px;
+          margin: 0 auto;
+        }
+      }
+      #contact .contact-duo {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr; /* immagine sinistra più ampia */
+        gap: clamp(16px, 3vw, 36px);
+      } /* ========================= Contact form ========================= */
+      #contact-form {
+        padding: clamp(40px, 10vh, 88px) 0;
+      }
+      .cf-wrap {
+        max-width: 640px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .cf-card {
+        border: 3px solid var(--orange);
+        border-radius: 22px;
+        padding: clamp(18px, 3.2vw, 26px) clamp(18px, 3.2vw, 28px)
+          clamp(22px, 3.8vw, 34px);
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14),
+          0 6px 12px rgba(0, 0, 0, 0.08);
+      }
+      .cf-icon {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -50%);
+        /* se vuoi sfondo TRASPARENTE, lascia senza background: */
+        background: transparent; /* <— oppure togli proprio la riga */
+        padding: 0; /* niente padding attorno alla PNG */
+        border-radius: 0;
+        z-index: 5; /* <— la mette sopra al form */
+      }
+
+      .cf-icon img {
+        display: block;
+        width: 64px; /* cambia se la vuoi più grande/piccola */
+        height: auto;
+      }
+      @media (max-width: 560px) {
+        .cf-icon img {
+          width: 52px;
+        }
+      }
+      .cf-label {
+        display: block;
+        margin: 14px 0 6px;
+        color: var(--orange);
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .cf-input,
+      .cf-textarea {
+        width: 80%;
+        border: 0;
+        outline: 0;
+        background: #fff;
+        color: #222;
+        font-family: "ArialRegular", Arial, sans-serif;
+        border-radius: 10px;
+        padding: 12px 14px;
+        box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.06);
+      }
+      .cf-textarea {
+        min-height: 92px;
+        resize: vertical;
+      }
+      .cf-captcha {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 12px;
+        padding: 10px 12px;
+        background: #fff;
+        color: #222;
+        border-radius: 10px;
+        box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.06);
+        font-family: "ArialRegular", Arial, sans-serif;
+        user-select: none;
+
+        width: 35%; /* stessa larghezza degli input */
+        margin: 20px 58px; /* centra come gli input */
+        display: flex; /* non inline-flex, così il margin auto funziona */
+        justify-content: flex-start; /* contenuto allineato a sinistra */
+        padding-left: 14px; /* uguale agli input (12px 14px) per allineare il testo interno */
+        padding-right: 12px; /* opzionale: simmetria con gli input */
+      }
+      .cf-captcha .cf-cap-badge {
+        margin-left: auto; /* la tiene a destra del testo */
+        height: 22px;
+        width: auto;
+        display: block;
+
+        /* niente sfondo, niente bordo, niente ombre */
+        background: transparent !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      .cf-captcha-logo {
+        width: 40px;
+        height: auto;
+        display: block;
+      }
+      .cf-captcha input {
+        width: 18px;
+        height: 18px;
+      }
+      .cf-submit {
+        display: block;
+        margin: 18px auto 0;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px 28px;
+        background: var(--orange);
+        color: #fff;
+        font-weight: 700;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+      }
+      .cf-submit:active {
+        transform: translateY(1px);
+      }
+      @media (max-width: 560px) {
+        .cf-icon svg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      /* stessa larghezza per tutto il “blocco” form */
+      .cf-card {
+        --field-w: 80%;
+      }
+
+      /* centrare i campi e – opzionale – anche le label */
+      .cf-label,
+      .cf-input,
+      .cf-textarea {
+        width: var(--field-w);
+        margin-left: auto;
+        margin-right: auto;
+        display: block; /* per sicurezza */
+      }
+      .cf-captcha span {
+        white-space: nowrap;
+      }
+
+      /* Nasconde il bordo dietro la busta */
+      .cf-card {
+        position: relative;
+      } /* crea il contesto per ::before */
+
+      .cf-card::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -50%); /* esattamente sopra al bordo */
+        width: 88px; /* ≈ larghezza busta + margine */
+        height: 42px; /* altezza del tappo */
+        background: var(--pink); /* stesso colore dello sfondo pagina */
+        border-radius: 12px; /* angoli morbidi come nel mockup */
+        z-index: 2; /* sopra al bordo */
+      }
+
+      /* la busta resta sopra al tappo */
+      .cf-icon {
+        z-index: 5;
+      }
+
+      /* ========================= Cookie banner + preferences ========================= */
+      .cookie-mask {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+      .cookie-mask.show {
+        display: flex;
+      }
+      .cookie-card {
+        width: min(640px, 92vw);
+        background: rgba(255, 255, 255, 0.86);
+        color: #222;
+        border-radius: 20px;
+        padding: 22px 22px 18px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        transform: translateY(24px) scale(0.98);
+        opacity: 0;
+        transition: 0.35s ease;
+        backdrop-filter: blur(6px) saturate(120%);
+      }
+      .cookie-mask.show .cookie-card {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      .cookie-title {
+        font-weight: 800;
+        font-size: 22px;
+        margin: 0 0 8px;
+      }
+      .cookie-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn.primary {
+        background: var(--orange);
+        color: #fff;
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 2px solid #222;
+      }
+      .btn.soft {
+        background: #222;
+        color: #fff;
+      }
+      .btn.link {
+        background: transparent;
+        border: 0;
+        text-decoration: underline;
+        color: #222;
+        padding: 8px 4px;
+      }
+      .cookie-prefs {
+        display: none;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(0, 0, 0, 0.15);
+      }
+      .cookie-prefs.show {
+        display: block;
+      }
+      .ck-legend {
+        font-weight: 800;
+        margin: 0 0 8px;
+      }
+      .ck-rows {
+        display: grid;
+        gap: 10px;
+      }
+      .ck-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .ck-row strong {
+        color: #222;
+      }
+      .ck-row small {
+        color: #222;
+        opacity: 0.75;
+      }
+      .ck-row input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+      }
+      .ck-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      /* ——— Carosello pulito ——— */
+      /* ——— Carosello generico ——— */
+      .js-carousel {
+        --desired-slide-w: 350px; /* puoi personalizzarla per-sezione inline */
+        --gap: clamp(16px, 2vw, 28px);
+        --btn-out: -92px; /* sposta le frecce fuori */
+        position: relative;
+      }
+      .js-carousel .carousel-window {
+        overflow: hidden;
+      }
+      .js-carousel .carousel-track {
+        display: flex;
+        gap: var(--gap);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .js-carousel .carousel-card {
+        flex: 0 0 var(--slide-w);
+      }
+      .js-carousel .frame {
+        width: 100%;
+        aspect-ratio: 806/1059;
+        border-radius: 32px;
+        overflow: hidden;
+      }
+      .js-carousel .frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* frecce assolute: non rubano spazio alla finestra → niente tagli */
+      .js-carousel .car-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border: 0;
+        border-radius: 50%;
+        background: #f26a21;
+        color: #fff;
+        font-size: 22px;
+        line-height: 1;
+        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        user-select: none;
+      }
+      .js-carousel .car-btn.prev {
+        left: var(--btn-out);
+      }
+      .js-carousel .car-btn.next {
+        right: var(--btn-out);
+      }
+
+      @media (max-width: 900px) {
+        .js-carousel {
+          --desired-slide-w: 82vw;
+        }
+        .js-carousel .car-btn.prev {
+          left: 8px;
+        }
+        .js-carousel .car-btn.next {
+          right: 8px;
+        }
+      }
+
+      /* caption sotto */
+      .container.carousel-wide > .carousel-caption-fixed {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+        text-align: center;
+        font-weight: 600 !important;
+        font-size: clamp(14px, 1.2vw, 18px) !important;
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+          Ubuntu, Cantarell, "Helvetica Neue", Arial !important;
+        color: #111 !important;
+      }
+
+      /* eventuali caption vecchie dentro le foto: spegnile */
+      .js-carousel .photo-cap {
+        display: none !important;
+      }
+      .js-carousel .card-caption {
+        margin-top: 8px;
+        text-align: center;
+        font-weight: 600;
+        font-size: clamp(14px, 1.2vw, 18px);
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+          Ubuntu, Cantarell, "Helvetica Neue", Arial;
+        color: #111;
+      }
+      .js-carousel .carousel-card {
+        display: flex;
+        flex-direction: column; /* frame sopra, caption sotto */
+      }
+      /*--HOVER--*/
+      .frame::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #000;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+        z-index: 2;
+        border-radius: inherit;
+      }
+      .frame:hover::before {
+        opacity: 0.28;
+      }
+
+      /* Maschera: si attiva SOLO quando JS mette .mask-ready */
+      .frame.mask-ready::before {
+        display: none;
+      }
+      .frame.mask-ready::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #000;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+        z-index: 2;
+
+        -webkit-mask-image: var(--mask-url);
+        mask-image: var(--mask-url);
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+      }
+      .frame.mask-ready:hover::after {
+        opacity: 0.28;
+      }
+
+      /* Testo in overlay */
+      .frame .hover-text {
+        font-size: small;
+        position: absolute;
+        inset: 0;
+        display: flex; /* centro solo il contenitore, non il testo */
+        align-items: center; /* centrato verticalmente */
+        justify-content: center; /* centrato orizzontalmente */
+        padding: 40px 40px;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        z-index: 3;
+        pointer-events: none;
+      }
+      .frame:hover .hover-text {
+        opacity: 1;
+      }
+
+      /* il testo vero e proprio */
+      .frame .hover-text__inner {
+        font-size: small;
+        max-width: min(80%, 520px);
+        text-align: left; /* ← sinistra */
+        color: #fff;
+        font: 400 16px/1.45 "ArialRegular", Arial, sans-serif; /* ← ArialRegular */
+        white-space: pre-line; /* supporta \n per andare a capo */
+      }
+
+      /* assicuriamoci che .frame sia posizione/clip giusta */
+      .frame {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        isolation: isolate;
+      }
+      .frame {
+        --dim: 0.48;
+      } /* 0.48 ≈ abbastanza scuro; prova .55 se vuoi di più */
+
+      /* transizione anche del filtro */
+      .frame img {
+        transition: transform 0.35s ease, filter 0.25s ease;
+      }
+
+      /* zoom + leggero scurimento via filtro sull’immagine (fallback sicuro) */
+      .frame:hover img {
+        transform: scale(1.02);
+        filter: brightness(0.68) saturate(0.95); /* aumenta/abbassa a gusto */
+      }
+
+      /* overlay rettangolare (fallback) – ora usa la variabile --dim */
+      .frame::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #000;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+        z-index: 2;
+        border-radius: inherit;
+      }
+      .frame:hover::before {
+        opacity: var(--dim);
+      }
+
+      /* overlay mascherato – attivo solo quando JS mette .mask-ready */
+      .frame.mask-ready::before {
+        display: none;
+      }
+      .frame.mask-ready::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #000;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+        z-index: 2;
+
+        -webkit-mask-image: var(--mask-url);
+        mask-image: var(--mask-url);
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+      }
+      .frame.mask-ready:hover::after {
+        opacity: var(--dim);
+      }
+
+      /* testo in overlay (già ce l’hai, aggiungo solo un filo di contrasto) */
+      .frame .hover-text {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+      }
+
+      /* Disabilita tutti gli effetti hover dentro a .no-hover */
+      .no-hover .frame {
+        cursor: default !important;
+      }
+      .no-hover .frame img {
+        transition: none !important;
+      }
+
+      /* niente zoom */
+      .no-hover .frame:hover img {
+        transform: none !important;
+      }
+
+      /* niente scurimento (overlay ::after) */
+      .no-hover .frame::after,
+      .no-hover .frame:hover::after {
+        opacity: 0 !important;
+      }
+
+      /* niente testo overlay */
+      .no-hover .hover-text,
+      .no-hover .frame:hover .hover-text {
+        opacity: 0 !important;
+      }
+      .js-carousel:has(+ .carousel-caption-fixed) .frame {
+        cursor: default !important;
+      }
+      .js-carousel:has(+ .carousel-caption-fixed) .frame:hover img {
+        transform: none !important;
+      }
+      .js-carousel:has(+ .carousel-caption-fixed) .frame::after,
+      .js-carousel:has(+ .carousel-caption-fixed) .frame:hover::after {
+        opacity: 0 !important;
+      }
+      .js-carousel:has(+ .carousel-caption-fixed) .hover-text,
+      .js-carousel:has(+ .carousel-caption-fixed) .frame:hover .hover-text {
+        opacity: 0 !important;
+      }
+      .about-right {
+        --about-col-w: 52ch; /* cambia a piacere (48–60ch) */
+        display: grid;
+        justify-items: start; /* tutti gli elementi partono dalla stessa X */
+      }
+      /* icona busta come PNG */
+      .cf-icon img {
+        display: block;
+        width: 80px; /* come nello mockup; cambia se vuoi più grande/piccola */
+        height: auto;
+      }
+
+      @media (max-width: 560px) {
+        .cf-icon img {
+          width: 52px;
+        }
+      }
+      .menu a.active {
+        color: var(--orange);
+        font-family: "BrushedTraveler", "Pacifico", cursive;
+        text-decoration: none;
+      }
+      .menu a {
+        transition: color 0.2s ease;
+      } /* opzionale, per morbidezza */
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav" aria-label="Main">
+          <a
+            href="#home"
+            style="margin-left: -210px"
+            class="brand"
+            aria-label="Home"
+          >
+            <img src="logo.png" alt="Logo Valentina Santini" />
+          </a>
+          <div class="menu" style="margin-right: -142px">
+            <a href="#about">about me</a> <a href="#work">work</a>
+            <a href="#contact">contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="home">
+        <div class="container hero-inner">
+          <img
+            class="art"
+            src="scritta.png"
+            alt="Portfolio Valentina Santini"
+          />
+        </div>
+      </section>
+      <!-- ABOUT -->
+      <section id="about" class="about" style="margin-top: 15cap">
+        <div class="container about-grid">
+          <div class="about-left" style="margin-left: -80px; margin-top: -15px">
+            <img class="about-composite" src="about me.png" alt="About me" />
+          </div>
+          <div class="about-right" style="margin-left: 40px">
+            <h2 class="about-title" style="margin-left: -11px">
+              HI!
+              <span class="intro-tag" style="margin-left: -15px"
+                >INTRODUCTION</span
+              >
+            </h2>
+            <p class="about-text">
+              My name is Valentina, a passionate and dedicated graphic designer
+              focused on continuous learning and innovation. I create visual
+              solutions that combine creativity, functionality, and precise
+              attention to detail. I work well within multidisciplinary teams
+              and adapt quickly to diverse environments.
+            </p>
+            <p class="about-text">
+              I am eager to embrace new challenges in a dynamic setting where I
+              can apply my skills, contribute original ideas,and deliver
+              valuable results.
+            </p>
+            <h3 class="skills-title">SKILLS</h3>
+            <div class="skill-badges" aria-label="Software skills">
+              <div
+                class="badge"
+                title="Adobe Photoshop"
+                style="margin-left: 0px"
+              >
+                Ps
+              </div>
+              <div class="badge" title="Adobe Illustrator">Ai</div>
+              <div class="badge" title="Adobe Lightroom">Lr</div>
+              <div class="badge" title="Adobe InDesign">Id</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- WORK -->
+      <section id="work" class="container">
+        <div class="work-hero">
+          <img src="work.png" alt="Work composizione" />
+          <h2 class="work-title">WORK</h2>
+        </div>
+        <!-- GRAPHIC 1 -->
+        <h3 class="section-title">Graphic</h3>
+        <div class="container carousel-wide">
+          <div
+            class="carousel-wrap js-carousel"
+            data-caption-from="alt"
+            data-caption-per-card
+            style="--desired-slide-w: 350px"
+          >
+            <button
+              class="car-btn prev"
+              type="button"
+              aria-label="Foto precedente"
+            >
+              &#10094;
+            </button>
+            <div class="carousel-window">
+              <ul class="carousel-track">
+                <!-- Le 6 card iniziali (verranno riordinate via JS per l'infinite-loop) -->
+                <li class="carousel-card">
+                  <div class="frame" data-mask-from="img">
+                    <img src="graphic1.png" alt="Caratteri medievali" />
+                    <div class="hover-text">
+                      Impaginazione realizzata sulla famglia stilistica del
+                      carattere di Aldo Novarese.
+                    </div>
+                  </div>
+                </li>
+                <li class="carousel-card">
+                  <div class="frame" data-mask-from="img">
+                    <img src="graphic2.png" alt="Alfabeto personale" />
+                    <div class="hover-text">
+                      Composizione positiva su sfondo negativo realizzata con un
+                      nuovo alfabeto personale .
+                    </div>
+                  </div>
+                </li>
+                <li class="carousel-card">
+                  <div class="frame" data-mask-from="img">
+                    <img src="graphic3.png" alt="Icone personali" />
+                    <div class="hover-text">
+                      Icone realizzate e coordinate al monogramma
+                      personale(mare, hotel, casa, wi-fi, aereoporto,
+                      informazioni, ristorante, vino, museo, freccia)
+                    </div>
+                  </div>
+                </li>
+                <li class="carousel-card">
+                  <div class="frame" data-mask-from="img">
+                    <img src="graphic4.png" alt="Composizioni" />
+                    <div class="hover-text">
+                      Composizioni basate su concetti astratti: costrizione,
+                      gioia, oppressione, contrasto, gioco, ritmo e insieme.
+                    </div>
+                  </div>
+                </li>
+                <li class="carousel-card">
+                  <div class="frame" data-mask-from="img">
+                    <img src="graphic5.png" alt="Loghi e marchi" />
+                    <div class="hover-text">
+                      Marchi e loghi realizzati per i seguenti committenti:
+                      vakings beer, compagnia olearia
+                    </div>
+                  </div>
+                </li>
+                <li class="carousel-card">
+                  <div class="frame" data-mask-from="img">
+                    <img src="graphic6.png" alt="Stampa xilografica" />
+                    <div class="hover-text">
+                      Stampa xilografica su linoleum che rappresenta un volto
+                      composto da bocche, a evocare la presenza e la forza
+                      collettiva delle voci femminili.
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <button
+              class="car-btn next"
+              type="button"
+              aria-label="Foto successiva"
+            >
+              &#10095;
+            </button>
+          </div>
+          <!-- Caption FISSA -->
+        </div>
+      </section>
+
+      <!-- ART -->
+      <h3 class="section-title" style="margin-left: 230px; margin-top: 100px">
+        Art
+      </h3>
+      <div class="container carousel-wide">
+        <div
+          class="carousel-wrap js-carousel"
+          data-caption-from="alt"
+          data-caption-per-card
+          style="--desired-slide-w: 350px"
+        >
+          <button
+            class="car-btn prev"
+            type="button"
+            aria-label="Foto precedente"
+          >
+            &#10094;
+          </button>
+          <div class="carousel-window">
+            <ul class="carousel-track">
+              <!-- Le 6 card iniziali (verranno riordinate via JS per l'infinite-loop) -->
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="art1.png" alt="La voce del mare" />
+                  <div class="hover-text">
+                    Rapresentazione di vele in poppa che si infrangono sulle
+                    onde, realizzate con tecnica pittorica gestuale che
+                    enfatizza il movimento della scena.
+                  </div>
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="art2.png" alt="Le città invisibili" />
+                  <div class="hover-text">
+                    Ideazione e realizzazione di una composizione materica su
+                    seta dorata, arricchita da perline colorate, ispirata al
+                    libro Le città invisibili di Italo Calvino.
+                  </div>
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="art3.png" alt="Vortici di silenzi" />
+                  <div class="hover-text">
+                    Composizione astratta su fondo nero realizzata con segni
+                    circolari bianchi, ottenuti con gesto spontaneo a mano
+                    libera.
+                  </div>
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="art4.png" alt="Artificiale e naturale" />
+                  <div class="hover-text">
+                    Acquarello su carta raffigurante un edificio vissuto, invaso
+                    da tronchi ed edera, esprime la fusione tra ambiente
+                    costruito e natura selvaggia.
+                  </div>
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="art5.png" alt="Paesaggio laguna" />
+                  <div class="hover-text">
+                    Disegno realizzato en plein air con tecnica pittorica,
+                    raffigurante la laguna di Orbetello, in Toscana.
+                  </div>
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="art6.png" alt="Brucaliffo" />
+                  <div class="hover-text">
+                    Lettering con illustrazione del Brucaliffo, personaggio
+                    tratto dal cartone Alice nel Paese delle Meraviglie,
+                    realizzato con tecnica a pennarello.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <button
+            class="car-btn next"
+            type="button"
+            aria-label="Foto successiva"
+          >
+            &#10095;
+          </button>
+        </div>
+      </div>
+
+      <!-- PHOTOGRAPHY (carousel a 3, loop infinito) -->
+      <h3 class="section-title" style="margin-left: 230px; margin-top: 100px">
+        Photography
+      </h3>
+      <div class="container carousel-wide">
+        <div class="carousel-wrap js-carousel" style="--desired-slide-w: 350px">
+          <button
+            class="car-btn prev"
+            type="button"
+            aria-label="Foto precedente"
+          >
+            &#10094;
+          </button>
+          <div class="carousel-window">
+            <ul class="carousel-track">
+              <!-- Le 6 card iniziali (verranno riordinate via JS per l'infinite-loop) -->
+              <li class="carousel-card">
+                <div class="frame no hover" data-mask-from="img">
+                  <img src="photo1.png" alt="Imperfetti ed unici" />
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="photo2.png" alt="Imperfetti ed unici" />
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="photo3.png" alt="Imperfetti ed unici" />
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="photo4.png" alt="Imperfetti ed unici" />
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="photo5.png" alt="Imperfetti ed unici" />
+                </div>
+              </li>
+              <li class="carousel-card">
+                <div class="frame" data-mask-from="img">
+                  <img src="photo6.png" alt="Imperfetti ed unici" />
+                </div>
+              </li>
+            </ul>
+          </div>
+          <button
+            class="car-btn next"
+            type="button"
+            aria-label="Foto successiva"
+          >
+            &#10095;
+          </button>
+        </div>
+        <!-- Caption FISSA -->
+        <div class="carousel-caption-fixed">Imperfetti e unici</div>
+      </div>
+
+      <!-- CONTACT (double image) -->
+      <section id="contact">
+        <div class="container">
+          <div class="contact-duo">
+            <figure class="contact-card">
+              <img src="contact.png" alt="Contact" />
+            </figure>
+            <figure class="contact-card">
+              <img src="contatti.png" alt="Social" />
+            </figure>
+          </div>
+        </div>
+      </section>
+      <!-- CONTACT FORM -->
+      <section id="contact-form">
+        <div class="container">
+          <div class="cf-wrap">
+            <div class="cf-icon" aria-hidden="true">
+              <img src="busta.png" alt="" />
+            </div>
+            <form id="contactForm" class="cf-card" novalidate>
+              <label class="cf-label" for="cf-name">Name*</label>
+              <input
+                class="cf-input"
+                type="text"
+                id="cf-name"
+                name="name"
+                required
+                autocomplete="name"
+              />
+              <label class="cf-label" for="cf-email">Email*</label>
+              <input
+                class="cf-input"
+                type="email"
+                id="cf-email"
+                name="email"
+                required
+                autocomplete="email"
+              />
+              <label class="cf-label" for="cf-msg">Message*</label>
+              <textarea
+                class="cf-textarea"
+                id="cf-msg"
+                name="message"
+                required
+              ></textarea>
+              <label class="cf-captcha">
+                <input type="checkbox" id="cf-cap" required />
+                <span>I’m not a robot</span>
+                <img
+                  class="cf-captcha-logo"
+                  src="recaptcha-icon.svg"
+                  alt="reCAPTCHA"
+                />
+              </label>
+            </form>
+            <button class="cf-submit" type="submit" form="contactForm">
+              Submit
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Cookie banner -->
+    <div
+      class="cookie-mask"
+      id="ckMask"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ckTitle"
+    >
+      <div class="cookie-card">
+        <h3 id="ckTitle" class="cookie-title">We value your privacy</h3>
+        <p style="margin: 0">
+          We use cookies to enhance your browsing experience, analyze our
+          traffic and show you relevant content. Choose your preference below.
+        </p>
+        <div class="cookie-actions">
+          <button class="btn soft" id="ckReject" type="button">
+            Reject All
+          </button>
+          <button class="btn ghost" id="ckCustomize" type="button">
+            Customize
+          </button>
+          <button class="btn primary" id="ckAccept" type="button">
+            Accept All
+          </button>
+        </div>
+        <!-- Preferences panel -->
+        <form id="ckPrefs" class="cookie-prefs" aria-label="Cookie preferences">
+          <p class="ck-legend">Choose what to allow:</p>
+          <div class="ck-rows">
+            <div class="ck-row">
+              <div>
+                <strong>Essential</strong><br />
+                <small>Always on. Needed for the site to work.</small>
+              </div>
+              <input type="checkbox" checked disabled />
+            </div>
+            <div class="ck-row">
+              <div>
+                <strong>Analytics</strong><br />
+                <small>Anonymous usage statistics.</small>
+              </div>
+              <input id="ckAnalytics" type="checkbox" />
+            </div>
+            <div class="ck-row">
+              <div>
+                <strong>Marketing</strong><br />
+                <small>Personalized content & media embeds.</small>
+              </div>
+              <input id="ckMarketing" type="checkbox" />
+            </div>
+          </div>
+          <div class="ck-actions">
+            <button class="btn ghost" id="ckCancel" type="button">
+              Cancel
+            </button>
+            <button class="btn primary" id="ckSave" type="submit">
+              Save preferences
+            </button>
+          </div>
+          <div class="cookie-links" style="margin-top: 8px">
+            This site does not sell personal data. Read our
+            <a href="#">Privacy Policy</a>.
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      /* ===== Sync CSS var --header-h con altezza reale header ===== */
+      (function () {
+        const root = document.documentElement;
+        const header = document.querySelector(".site-header");
+        function setHeaderHeight() {
+          root.style.setProperty(
+            "--header-h",
+            ((header && header.offsetHeight) || 74) + "px"
+          );
+        }
+        setHeaderHeight();
+        window.addEventListener("resize", setHeaderHeight);
+      })();
+
+      /* ===== Cookie consent con "Customize" (localStorage) ===== */
+      (function () {
+        const KEY = "ck_prefs_v1";
+        const mask = document.getElementById("ckMask");
+
+        const btnAccept = document.getElementById("ckAccept");
+        const btnReject = document.getElementById("ckReject");
+        const btnCustomize = document.getElementById("ckCustomize");
+
+        const form = document.getElementById("ckPrefs");
+        const inAnalytics = document.getElementById("ckAnalytics");
+        const inMarketing = document.getElementById("ckMarketing");
+        const btnCancel = document.getElementById("ckCancel");
+
+        const open = () => mask && mask.classList.add("show");
+        const close = () => mask && mask.classList.remove("show");
+
+        btnAccept &&
+          btnAccept.addEventListener("click", () => {
+            localStorage.setItem(
+              KEY,
+              JSON.stringify({
+                essential: true,
+                analytics: true,
+                marketing: true,
+              })
+            );
+            close();
+          });
+        btnReject &&
+          btnReject.addEventListener("click", () => {
+            localStorage.setItem(
+              KEY,
+              JSON.stringify({
+                essential: true,
+                analytics: false,
+                marketing: false,
+              })
+            );
+            close();
+          });
+        btnCustomize &&
+          btnCustomize.addEventListener("click", () => {
+            form && form.classList.toggle("show");
+          });
+
+        btnCancel &&
+          btnCancel.addEventListener(
+            "click",
+            () => form && form.classList.remove("show")
+          );
+        form &&
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            localStorage.setItem(
+              KEY,
+              JSON.stringify({
+                essential: true,
+                analytics: !!(inAnalytics && inAnalytics.checked),
+                marketing: !!(inMarketing && inMarketing.checked),
+              })
+            );
+            close();
+          });
+
+        // Mostra SEMPRE il banner a ogni ricarica (resetta la scelta)
+        window.addEventListener("load", () => {
+          localStorage.removeItem(KEY);
+          setTimeout(open, 100);
+        });
+      })();
+
+      /* ===== Contact form fake submit ===== */
+      (function () {
+        const form = document.getElementById("contactForm");
+        if (!form) return;
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (!form.reportValidity()) return;
+          form.reset();
+          location.hash = "#home";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      })();
+
+      /* ===== CAROUSEL (photoCarousel) ===== */
+      (function () {
+        document.querySelectorAll(".js-carousel").forEach(initCarousel);
+
+        function initCarousel(wrap) {
+          function ensurePerCardCaptions() {
+            if (!wrap.hasAttribute("data-caption-per-card")) return;
+            track.querySelectorAll(".carousel-card").forEach((card) => {
+              if (card.querySelector(".card-caption")) return;
+              const img = card.querySelector("img");
+              const txt = img && img.alt ? img.alt.trim() : "";
+              if (!txt) return;
+              const cap = document.createElement("div");
+              cap.className = "card-caption";
+              cap.textContent = txt;
+              card.appendChild(cap);
+            });
+            // se per sbaglio c'è una caption fissa subito sotto, nascondila
+            const fixed = wrap.nextElementSibling;
+            if (fixed && fixed.classList.contains("carousel-caption-fixed")) {
+              fixed.style.display = "none";
+            }
+          }
+
+          const win = wrap.querySelector(".carousel-window");
+          const track = wrap.querySelector(".carousel-track");
+          const prev = wrap.querySelector(".prev");
+          const next = wrap.querySelector(".next");
+          if (!win || !track) return;
+
+          let busy = false,
+            slideW = 0,
+            gap = 0;
+          const visible = () =>
+            window.matchMedia("(max-width:900px)").matches ? 1 : 3;
+
+          function layout() {
+            gap = parseFloat(getComputedStyle(track).gap) || 0;
+            const desired =
+              parseFloat(
+                getComputedStyle(wrap).getPropertyValue("--desired-slide-w")
+              ) || 350;
+            const vw = win.clientWidth;
+            const vis = visible();
+            const maxFit = Math.floor((vw - gap * (vis - 1)) / vis);
+            slideW = Math.min(desired, maxFit); // anti-taglio
+            wrap.style.setProperty("--slide-w", slideW + "px");
+            ensurePerCardCaptions(); // <- AGGIUNTO
+            updateCaption();
+          }
+
+          function go(dir) {
+            if (busy) return;
+            busy = true;
+            const delta = slideW + gap;
+
+            if (dir < 0) {
+              track.style.transition = "none";
+              track.prepend(track.lastElementChild);
+              track.style.transform = `translateX(${-delta}px)`;
+              void track.offsetWidth;
+              track.style.transition =
+                "transform .55s cubic-bezier(.22,.61,.36,1)";
+              track.style.transform = "translateX(0)";
+            } else {
+              track.style.transition =
+                "transform .55s cubic-bezier(.22,.61,.36,1)";
+              track.style.transform = `translateX(${-delta}px)`;
+            }
+
+            track.addEventListener(
+              "transitionend",
+              () => {
+                if (dir > 0) track.append(track.firstElementChild);
+                track.style.transition = "none";
+                track.style.transform = "translateX(0)";
+                busy = false;
+                ensurePerCardCaptions(); // <- AGGIUNTO
+                updateCaption();
+              },
+              { once: true }
+            );
+          }
+
+          // caption fissa solo dove NON usi data-caption-per-card
+          function updateCaption() {
+            // Se usi didascalie per-card, qui non facciamo nulla
+            if (wrap.hasAttribute("data-caption-per-card")) return;
+
+            // Aggiorna la caption SOLO se il wrapper lo chiede espressamente
+            // (es. data-caption-from="alt"). Se manca, lascia la caption fissa com'è.
+            const from = wrap.dataset.captionFrom;
+            if (!from) return;
+
+            const cap = wrap.nextElementSibling;
+            if (!cap || !cap.classList.contains("carousel-caption-fixed"))
+              return;
+
+            if (from === "alt") {
+              const idx = window.matchMedia("(max-width:900px)").matches
+                ? 0
+                : 1; // prima su mobile, centrale su desktop
+              const img = track.children[idx]?.querySelector("img");
+              if (img && img.alt) cap.textContent = img.alt;
+            }
+          }
+
+          prev && prev.addEventListener("click", () => go(-1));
+          next && next.addEventListener("click", () => go(1));
+
+          // PRIMA INIZIALIZZAZIONE
+          ensurePerCardCaptions(); // <- AGGIUNTO
+          layout();
+          window.addEventListener("resize", layout);
+        }
+      })();
+      /* Testo overlay: prende data-desc o alt (solo per i caroselli con data-caption-per-card) */
+      (function () {
+        document
+          .querySelectorAll(".js-carousel[data-caption-per-card] .frame")
+          .forEach((frame) => {
+            if (frame.querySelector(".hover-text")) return;
+            const img = frame.querySelector("img");
+            const txt = (img?.dataset.desc || img?.alt || "").trim();
+            if (!txt) return;
+            const t = document.createElement("div");
+            t.className = "hover-text";
+            t.textContent = txt;
+            frame.appendChild(t);
+          });
+      })();
+
+      /* Maschera dall'immagine: quando pronta -> .mask-ready */
+      (function () {
+        document
+          .querySelectorAll('.frame[data-mask-from="img"]')
+          .forEach((frame) => {
+            const img = frame.querySelector("img");
+            if (!img) return;
+            const setMask = () => {
+              frame.style.setProperty(
+                "--mask-url",
+                `url("${img.currentSrc || img.src}")`
+              );
+              frame.classList.add("mask-ready"); // attiva overlay mascherato
+            };
+            if (img.complete) setMask();
+            else img.addEventListener("load", setMask, { once: true });
+          });
+      })();
+
+      /* scritte in overlay */
+
+      (function () {
+        const header = document.querySelector(".site-header");
+        const links = {
+          about: document.querySelector('.menu a[href="#about"]'),
+          work: document.querySelector('.menu a[href="#work"]'),
+          contact: document.querySelector('.menu a[href="#contact"]'),
+        };
+
+        let aboutTop = 0,
+          workTop = 0,
+          contactTop = 0,
+          headerH = 74;
+        // anticipo: fai partire ABOUT un po’ prima (cambia 0.18 a gusto)
+        let ABOUT_EARLY = Math.round(window.innerHeight * 0.18);
+
+        function measure() {
+          headerH = (header && header.offsetHeight) || 74;
+
+          const about = document.getElementById("about");
+          const work = document.getElementById("work");
+          const contact = document.getElementById("contact");
+
+          aboutTop = about ? about.offsetTop : Number.POSITIVE_INFINITY;
+          workTop = work ? work.offsetTop : Number.POSITIVE_INFINITY;
+          contactTop = contact ? contact.offsetTop : Number.POSITIVE_INFINITY;
+
+          ABOUT_EARLY = Math.round(window.innerHeight * 0.18); // ricalcola su resize
+          updateActive();
+        }
+
+        function setActive(which) {
+          Object.values(links).forEach(
+            (a) => a && a.classList.remove("active")
+          );
+          if (which && links[which]) links[which].classList.add("active");
+        }
+
+        function updateActive() {
+          const y = window.scrollY + headerH + 2;
+          const aboutEdge = Math.max(0, aboutTop - ABOUT_EARLY); // <<< qui l’anticipo
+
+          if (y >= contactTop) {
+            setActive("contact");
+          } else if (y >= workTop) {
+            setActive("work");
+          } else if (y >= aboutEdge) {
+            setActive("about");
+          } else {
+            setActive(null);
+          }
+        }
+
+        window.addEventListener("scroll", updateActive, { passive: true });
+        window.addEventListener("resize", measure);
+        window.addEventListener("load", measure);
+        measure();
+      })();
+    </script>
+  </body>
+</html>
